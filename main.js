@@ -44,7 +44,7 @@
 // // code. You can also put them in separate files and require them here.
 
 
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
@@ -55,14 +55,9 @@ app.on('ready', () => {
     }
   })
   mainWindow.loadFile('./index.html')
-
-  const secondWindow = new BrowserWindow({
-    width: 500,
-    height: 300,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-    parent: mainWindow,
+  ipcMain.on('message', (event, arg) => {
+    console.log(arg)
+    // event.sender.send('reply',  'hello from main')
+    mainWindow.send('reply', 'hello mainWindow')
   })
-  secondWindow.loadFile('./second.html')
 })
