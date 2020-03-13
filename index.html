@@ -1,23 +1,15 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello Electron!</title>
-  </head>
-  <body>
-    <h1>Hello Electron!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-    <h3>video</h3>
-    <video id="video" width="800" height="480" preload>
-      <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type='video/mp4'>
-    </video>
-    <!-- <video src=""></video> -->
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello Electron</title>
+</head>
+<body>
+  <h1>Hello Electron!</h1>
+  <script>
+    require('./renderer.js')
+  </script>
+</body>
 </html>
