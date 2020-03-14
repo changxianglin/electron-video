@@ -44,7 +44,7 @@
 // // code. You can also put them in separate files and require them here.
 
 
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 
 class AppWindow extends BrowserWindow {
   constructor(config, fileLocation) {
@@ -73,5 +73,16 @@ app.on('ready', () => {
       height: 300,
       parent: mainWindow,
     }, './renderer/add.html')
+  })
+
+  ipcMain.on('open-music-file', () => {
+    dialog.showOpenDialog({
+      properties: ['openFile', 'multiSelections'],
+      filters: [{name: 'Music', extensions: ['mp3', 'mp4']}]
+    }).then(files => {
+      console.log(files)
+    }).catch(err => {
+      console.log(err)
+    })
   })
 })
