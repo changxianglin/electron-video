@@ -21,7 +21,6 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
-    "boostrap": "^2.0.0",
     "bootstrap": "^4.4.1"
   }
 }
