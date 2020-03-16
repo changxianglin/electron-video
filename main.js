@@ -23,6 +23,11 @@ class AppWindow extends BrowserWindow {
 
 app.on('ready', () => {
   const mainWindow = new AppWindow({}, './renderer/index.html')
+  mainWindow.webContents.openDevTools()
+  mainWindow.webContents.on('did-finish-load', () => {
+    console.log('page did finish load')
+    mainWindow.send('getTracks', myStore.getTracks())
+  })
 
   ipcMain.on('add-music-window', (event, arg) => {
     const addWindow = new AppWindow({
@@ -35,7 +40,7 @@ app.on('ready', () => {
 
   ipcMain.on('add-tracks', (event, tracks) => {
     const updatedTracks = myStore.addTracks(tracks).getTracks()
-    console.log(updatedTracks)
+    mainWindow.send('getTracks', updatedTracks)
   })
   
 
