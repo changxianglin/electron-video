@@ -47,10 +47,30 @@ $('tracksList').addEventListener('click', (event) => {
   const id = dataset && dataset.id
 
   if(id && classList.contains('fa-play')) {
+    console.log('播放')
     // 从这里播放音乐
-    currentTracks = allTracks.find(track => track.id === id)
-    musicAudio.src = currentTracks.path
-    musicAudio.play()
+    if(currentTracks && currentTracks.id === id) {
+      // 继续播放音乐
+      musicAudio.play()
+    } else {
+      // 播放新歌曲、还原图标
+      currentTracks = allTracks.find(track => track.id === id)
+      musicAudio.src = currentTracks.path
+      musicAudio.play()
+      const resetIconEle = document.querySelector('.fa-pause')
+      console.log('新歌曲', resetIconEle)
+      if(resetIconEle) {
+        resetIconEle.classList.replace('fa-pause', 'fa-play')
+      }
+    }
     classList.replace('fa-play', 'fa-pause')
+  } else if(id && classList.contains('fa-pause')) {
+    console.log('暂停')
+    // 从这里暂停音乐
+      musicAudio.pause()
+      classList.replace('fa-pause', 'fa-play')
+  } else if(id && classList.contains('fa-trash-o')) {
+    // 从这里删除音乐
+    ipcRenderer.send('delete-track', id)
   }
 })

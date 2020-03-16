@@ -42,7 +42,11 @@ app.on('ready', () => {
     const updatedTracks = myStore.addTracks(tracks).getTracks()
     mainWindow.send('getTracks', updatedTracks)
   })
-  
+
+  ipcMain.on('delete-track', (event, id) => {
+    const updatedTracks = myStore.deleteTracks(id).getTracks()
+    mainWindow.send('getTracks', updatedTracks)
+  })
 
   ipcMain.on('open-music-file', (event) => {
     dialog.showOpenDialog({
