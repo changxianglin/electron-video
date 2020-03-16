@@ -1,6 +1,9 @@
 const { ipcRenderer } = require('electron')
 const { $ } = require('./helper')
 
+const musicAudio = new Audio()
+let allTracks 
+let currentTracks
 $('add-music-button').addEventListener('click', () => {
   ipcRenderer.send('add-music-window', 'add music')
 })
@@ -22,8 +25,8 @@ const renderListHTML = (tracks) => {
           <b>${track.fileName}</b>
         </div>
         <div class="col-2">
-          <i class="fa fa-play mr-3"></i>
-          <i class="fa fa-trash-o"></i>
+          <i class="fa fa-play mr-3" data-id="${track.id}"></i>
+          <i class="fa fa-trash-o" data-id="${track.id}"></i>
         </div>
     </li>`
     return html
@@ -34,5 +37,10 @@ const renderListHTML = (tracks) => {
 
 ipcRenderer.on('getTracks', (event, tracks) => {
   console.log('receive tracks', tracks)
+  allTracks = tracks
   renderListHTML(tracks)
+})
+
+$('tracksList').addEventListener('click', () => {
+  
 })
