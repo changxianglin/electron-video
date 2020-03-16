@@ -41,6 +41,16 @@ ipcRenderer.on('getTracks', (event, tracks) => {
   renderListHTML(tracks)
 })
 
-$('tracksList').addEventListener('click', () => {
-  
+$('tracksList').addEventListener('click', (event) => {
+  event.preventDefault()
+  const { dataset, classList } = event.target
+  const id = dataset && dataset.id
+
+  if(id && classList.contains('fa-play')) {
+    // 从这里播放音乐
+    currentTracks = allTracks.find(track => track.id === id)
+    musicAudio.src = currentTracks.path
+    musicAudio.play()
+    classList.replace('fa-play', 'fa-pause')
+  }
 })
